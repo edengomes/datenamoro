@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Inicial</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background: linear-gradient(45deg, #000, #2e2c2c);
+        font-family: Arial, sans-serif;
+        color: white;
+      }
+      .start-btn {
+        background: white;
+        color: #ff4b2b;
+        border: none;
+        padding: 15px 30px;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+      .start-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Elemento de áudio oculto -->
+    <audio id="background-music" src="musica.mp3"></audio>
+
+    <button class="start-btn" onclick="openPage()">CLIQUE AQUI</button>
+
+    <script>
+      function openPage() {
+        // Toca a música
+        const music = document.getElementById("background-music");
+        music.play().then(() => {
+          // Redireciona para a página principal após a música começar
+          window.location.href = "main.html";
+        }).catch((error) => {
+          console.error("Erro ao reproduzir a música:", error);
+          // Redireciona mesmo que a música não possa ser reproduzida
+          window.location.href = "main.html";
+        });
+      }
+    </script>
+  </body>
+</html>

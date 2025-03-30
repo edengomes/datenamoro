@@ -181,8 +181,12 @@
     </div>
 
     <div class="outside-controls">
-      <button onclick="prevImage()"><i class="fa fa-chevron-left"></i> Anterior</button>
-      <button onclick="nextImage()">Próxima <i class="fa fa-chevron-right"></i></button>
+      <button onclick="prevImage()">
+        <i class="fa fa-chevron-left"></i> Anterior
+      </button>
+      <button onclick="nextImage()">
+        Próxima <i class="fa fa-chevron-right"></i>
+      </button>
     </div>
 
     <div class="love-counter" id="counter"></div>
@@ -219,19 +223,46 @@
       function updateCounter() {
         let startDate = new Date("2022-05-30T00:00:00");
         let now = new Date();
-        let diff = now - startDate;
 
-        let seconds = Math.floor(diff / 1000) % 60;
-        let minutes = Math.floor(diff / (1000 * 60)) % 60;
-        let hours = Math.floor(diff / (1000 * 60 * 60)) % 24;
-        let days = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;
-        let months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)) % 12;
-        let years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+        let years = now.getFullYear() - startDate.getFullYear();
+        let months = now.getMonth() - startDate.getMonth();
+        let days = now.getDate() - startDate.getDate();
+        let hours = now.getHours() - startDate.getHours();
+        let minutes = now.getMinutes() - startDate.getMinutes();
+        let seconds = now.getSeconds() - startDate.getSeconds();
+
+        // Ajustar meses e anos se necessário
+        if (months < 0) {
+          years--;
+          months += 12;
+        }
+
+        // Ajustar dias e meses se necessário
+        if (days < 0) {
+          months--;
+          let previousMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+          days += previousMonth.getDate();
+        }
+
+        // Ajustar horas, minutos e segundos se necessário
+        if (hours < 0) {
+          days--;
+          hours += 24;
+        }
+        if (minutes < 0) {
+          hours--;
+          minutes += 60;
+        }
+        if (seconds < 0) {
+          minutes--;
+          seconds += 60;
+        }
 
         document.getElementById(
           "counter"
         ).innerText = `${years} anos, ${months} meses, ${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
       }
+
       setInterval(updateCounter, 1000);
       updateCounter();
 
